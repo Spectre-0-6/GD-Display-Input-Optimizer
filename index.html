@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="SpectreNoodle">
+
+    <!-- Primary Meta Tags -->
+    <title>GD Stutter Calculator</title>
+    <meta name="title" content="GD Stutter Calculator" />
+    <meta name="description" content="Allows you to calculate and get help with the optimal setup in GD!" />
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://spectre-0-6.github.io/pages/gd-stutter-calculator/" />
+    <meta property="og:title" content="GD Stutter Calculator" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="https://spectre-0-6.github.io/assets/preview.png" />
+    
+    <!-- X (Twitter) -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://spectre-0-6.github.io/pages/gd-stutter-calculator/" />
+    <meta property="twitter:title" content="GD Stutter Calculator" />
+    <meta property="twitter:description" content="" />
+    <meta property="twitter:image" content="https://spectre-0-6.github.io/assets/preview.png" />
+
+<!-- Meta Tags Generated with https://metatags.io -->
+</head>
+  <body>
+    <h1>GD Stutter Calculator</h1>
+    <h3>- SpectreNoodle</h3>
+    <div class="input-section">
+      <div class="input-group">
+        <h3>Refresh Rate</h3>
+        <input id="rr" type="number" placeholder="Ex: 60, 144, 240">
+      </div>
+      
+      <div class="input-group">
+        <h3>Framerate <p>(This is assuming you don't use regular tps bypass. There are much better options if you do, but for now, dont consider it.)</p></h3>
+        <input id="fr" type="number" placeholder="Ex: 60, 144, 240">
+      </div>
+      
+      <div class="input-group">
+        <h4>Physics Bypass</h4>
+        <p>If unsure or playing vanilla, click no.</p>
+        <div id="fb-input">
+          <input type="radio" name="pb" value="no" checked>
+          <label for="yesOption">No</label>
+          <input type="radio" name="pb" value="yes">
+          <label for="noOption">Yes</label>
+        </div>
+        <div id="pb-values" style="display:none;">
+          <h4>Physics Bypass Rate</h4>
+          <input id="pr" type="number" placeholder="360, 480, etc..">
+        </div>
+      </div>
+    </div>
+
+    <div id="run">
+      <h3>Run Calculator</h3>
+      <button id="startB">Calculate Issues</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
