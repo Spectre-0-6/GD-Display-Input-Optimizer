@@ -245,7 +245,7 @@ function filterPairs(arr){
           text += `${currentValue}hz => ${thirdVals[i+1]}fps<br>`
         }
       });
-      text += `</p><br>`;
+      text += `</p>`;
     }
   }
 
