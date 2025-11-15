@@ -12,8 +12,6 @@ let rrRate;
 // Vanilla blud
 let prRate = 240;
 
-pbEx.style.display = "none";
-
 // Input listeners
 frVal.addEventListener("change", function(){ frRate = Number(frVal.value); });
 rrVal.addEventListener("change", function(){ rrRate = Number(rrVal.value); });
@@ -21,9 +19,15 @@ prVal.addEventListener("change", function(){ prRate = Number(prVal.value); });
 
 pbInputs.forEach(element => {
   element.addEventListener("change", function() {
-    pbEx.style.display = document.querySelector('input[name="pb"]:checked').value === "yes" ? "block" : "none";
+    const isEnabled = document.querySelector('input[name="pb"]:checked').value === "yes";
+    prVal.readOnly = !isEnabled;
+    prVal.placeholder = isEnabled ? "360, 480, etc.." : "";
+    prVal.value = isEnabled ? "" : "240";
   });
 });
+
+prVal.readOnly = true;
+prVal.value = "240";
 
 // Unified physics rate getter xdddddddddd
 function getPhysicsRate() {
@@ -95,7 +99,6 @@ function calcOtherRR(){
   let newNewArr=[];
   let baseRR = parseInt(document.getElementById("rr").value);
 
-
 // AHH
 function filterPairs(arr){
     let out=[];
@@ -127,7 +130,7 @@ function filterPairs(arr){
     }
   }
 
-  text += `<p>- Having a stable ideal framerate if you require to use it is very important. At <b>${prRate}tps</b> physics rate, here are some reccomendations:<br>`
+  text += `<p>- Having a stable ideal framerate if you require to use it is very important. At <b>${prRate}tps</b> physics rate, here are some recommendations. (If you can run the FPS, choose the value closest to your RR):<br>`
 
   // First factor(EZ)
   if (firstVals.length > 0) 
@@ -247,13 +250,11 @@ function filterPairs(arr){
   }
 
   if(!check){
-    text += `<p>Lol I'm sorry twin your physics bypass value is god awful. I'm just gonna assume u are an ILL botter, there's just no reason to actually play at this rate.</p><br>`;
+    text += `<p>Lol I'm sorry twin your physics bypass value is god awful. (or your RR is WAY too low, <60) I'm just gonna assume u are an ILL botter, there's just no reason to actually play at this rate.</p>`;
   }
 
   return(text);
 }
-
-
 
 function calcStutterVal(){
   if (!frRate || !rrRate) {
