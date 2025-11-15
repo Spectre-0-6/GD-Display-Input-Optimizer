@@ -340,7 +340,7 @@ function calcStutterVal(){
   resultHTML += `<details class="dropdown" open>`;
   resultHTML += `<summary><b>In General</b></summary>`;
   resultHTML += `<div class="dropdown-content">`;
-  resultHTML += `<p>- ABSOLUTELY, (no pun intended), use Frame Extrapolation. It only changes the game visually.</p>`;
+  resultHTML += `<p>- Use Frame Extrapolation to maintain smoothness of your game no matter what. This is 100% allowed on any leaderboard, theres no reason not to.</p>`;
   if(rrRate > prRate){
     resultHTML += `<h4>Due to your refresh rate being higher than the physics rate (${prRate}tps):</h4>`;
     resultHTML += `<p><b>- If you don't use Frame Extrapolation, you physically cannot render the game over ${prRate}fps, even if your chosen FPS is the speed the game is running at.</b></p>`;
