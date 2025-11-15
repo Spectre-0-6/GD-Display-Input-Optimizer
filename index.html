@@ -37,12 +37,13 @@
       </div>
       
       <div class="input-group">
-        <h3>Framerate <p>(This is assuming you don't use regular tps bypass. There are much better options if you do, but for now, dont consider it.)</p></h3>
+        <h3>Framerate</h3>
+        <p>(This is assuming you don't use regular tps bypass. There are much better options if you do, but for now, dont consider it.)</p>
         <input id="fr" type="number" placeholder="Ex: 60, 144, 240">
       </div>
       
       <div class="input-group">
-        <h4>Physics Bypass</h4>
+        <h3>Physics Bypass</h3>
         <p>If unsure or playing vanilla, click no.</p>
         <div id="fb-input">
           <input type="radio" name="pb" value="no" checked>
@@ -50,17 +51,23 @@
           <input type="radio" name="pb" value="yes">
           <label for="noOption">Yes</label>
         </div>
-        <div id="pb-values" style="display:none;">
-          <h4>Physics Bypass Rate</h4>
-          <input id="pr" type="number" placeholder="360, 480, etc..">
+        <div id="pb-values">
+          <h4>Physics Rate</h4>
+          <input id="pr" type="number" placeholder="360, 480, etc.." value="240" readonly>
         </div>
       </div>
     </div>
 
-    <div id="run">
-      <h3>Run Calculator</h3>
-      <button id="startB">Calculate Issues</button>
+    <div class="calculator-container">
+      <div id="run">
+        <h3>Run Calculator</h3>
+        <button id="startB">Calculate Issues</button>
+      </div>
+      
+      <div id="results">
+      </div>
     </div>
-  <script type="text/javascript" src="script.js"></script>
-</body>
+    
+    <script type="text/javascript" src="script.js"></script>
+  </body>
 </html>
