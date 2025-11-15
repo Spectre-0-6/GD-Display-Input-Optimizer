@@ -1,4 +1,5 @@
 // Holy Variables (Sorry)
+if ('this_is'==/an_example/){of_beautifier();}else{var a=b?(c%d):e[f];}// Holy Variables (Sorry)
 const pbInputs = document.querySelectorAll('input[name="pb"]');
 const pbEx = document.getElementById("pb-values");
 const frVal = document.getElementById("fr");
@@ -25,6 +26,12 @@ pbInputs.forEach(element => {
   });
 });
 
+// Unified physics rate getter xdddddddddd
+function getPhysicsRate() {
+  const pbOn = document.querySelector('input[name="pb"]:checked')?.value === "yes";
+  return pbOn ? prRate : 240;
+}
+
 // Getting LCM ahh blud (AND big boy gcd 🥰)
 function gcd(a, b) { 
   return b === 0 ? a : gcd(b, a % b); 
@@ -38,26 +45,216 @@ function calculateStutter(frameRate, refreshRate) {
   const fr = Math.round(frameRate);
   const rr = Math.round(refreshRate);
   
-  // Perfect alignment - integer ratio
-  if (fr % rr === 0 || rr % fr === 0) {
-    return 0;
-  }
+  if (fr % rr === 0 || rr % fr === 0) return 0;
   
-  // Calc (calculator) the error
   const ratio = fr / rr;
   
   if (fr > rr) {
-    // FPS > Hz: frames get skipped :(
     const idealFramesPerRefresh = fr / rr;
     const fractionalPart = idealFramesPerRefresh - Math.floor(idealFramesPerRefresh);
     return fractionalPart * 100;
   } else {
-    // FPS < Hz: frames get duplicated  :(  :(
     const idealRefreshesPerFrame = rr / fr;
     const fractionalPart = idealRefreshesPerFrame - Math.floor(idealRefreshesPerFrame);
     return fractionalPart * 100;
   }
 }
+
+// I LOVE NOT PLANNING AHEAD BLUDDDDDDD!!!!!! XDDDDDD
+function reversePairs(arr) {
+  let out = [];
+  for (let i = arr.length - 2; i >= 0; i -= 2) {
+    out.push(arr[i], arr[i+1]);
+  }
+  return out;
+}
+
+// I LOVE NOT PLANNING AHEAD BLUDDDDDDD!!!!!! XDDDDDD// I LOVE NOT PLANNING AHEAD BLUDDDDDDD!!!!!! XDDDDDD// I LOVE NOT PLANNING AHEAD BLUDDDDDDD!!!!!! XDDDDDD// I LOVE NOT PLANNING AHEAD BLUDDDDDDD!!!!!! XDDDDDD// I LOVE NOT PLANNING AHEAD BLUDDDDDDD!!!!!! XDDDDDD
+function filterByRefresh(arr, userRR) {
+  let out = [];
+  for (let i = 0; i < arr.length; i += 2) {
+    let hz = arr[i];
+    let fps = arr[i+1];
+    if (hz < userRR) {
+      out.push(hz, fps);
+    }
+  }
+  return out;
+}
+
+//THIS ONe kinda weird, but I got it working thankfully. Nested loops be damned.
+function calcOtherRR(){
+  var text = ``;
+  var firstVals=[];
+  var secondVals=[];
+  var thirdVals=[];
+  var check = false;
+  let shit;
+  let newArr=[];
+  let splitKeys=[];
+  let splitKeys2=[];
+  let newNewArr=[];
+  let baseRR = parseInt(document.getElementById("rr").value);
+
+
+// AHH
+function filterPairs(arr){
+    let out=[];
+    for(let i=0;i<arr.length;i+=2){
+      let hz = arr[i];
+      let fps = arr[i+1];
+      if(hz <= baseRR){
+        out.push(hz, fps);
+      }
+    }
+    return out;
+}
+
+// Fuckity fuck fuck you!
+  const phys = getPhysicsRate();
+  for (let j = 1; j < 4; j++) {
+    const maxI = Math.floor((phys * j) / 60);
+    if (maxI < 2) continue;
+    for (let i = 1; i <= maxI; i++) {
+      if ((phys * j) % i == 0) {
+        const hz = phys * j / i;
+        const fps = lcm(phys, hz);
+        if (hz <= rrRate && hz !== rrRate) { 
+          if(j == 1) { firstVals.push(hz, fps); }
+          if(j == 2) { secondVals.push(hz, fps); }
+          if(j == 3) { thirdVals.push(hz, fps); }
+        }
+      }
+    }
+  }
+
+  text += `<p>- Having a stable ideal framerate if you require to use it is very important. At <b>${prRate}tps</b> physics rate, here are some reccomendations:<br>`
+
+  // First factor(EZ)
+  if (firstVals.length > 0) 
+  {
+    firstVals = filterPairs(firstVals);
+    if(firstVals.length > 0){
+      check = true;
+      text += `<p>Some good alternatives are:<br>`
+      firstVals.forEach(function(currentValue, i) {
+        if(i%2 == 0){
+          text += `${currentValue}hz => ${firstVals[i+1]}fps<br>`
+        }
+      });
+      text += `</p><br>`;
+    }
+  }
+
+  // Second factor(not EZ)
+  if (secondVals.length > 0) 
+  {
+    shit = false;
+
+    firstVals.forEach(function(currentValue, i){
+      if (i % 2 == 0) {
+        splitKeys.push(currentValue);
+      }
+    });
+
+    secondVals.forEach(function(currentValue2, j){
+      if (j % 2 == 0) {
+        if (!(splitKeys.includes(currentValue2))) {
+          newArr.push(currentValue2);
+          newArr.push(secondVals[j+1]);
+        }
+      }
+    });
+
+    secondVals = newArr.slice();
+
+    if(secondVals.length == 0){
+      shit=true;
+    }
+
+    secondVals = filterPairs(secondVals);
+
+    if(secondVals.length == 0){
+      shit = true;
+    }
+
+    if(!shit){
+      check = true;
+      text += `<p>Some "okay" alternatives are:<br>`
+      secondVals.forEach(function(currentValue, i) {
+        if(i%2 == 0){
+          text += `${currentValue}hz => ${secondVals[i+1]}fps<br>`
+        }
+      });
+      text += `</p><br>`;
+    }
+  }
+
+  // Third factor(def not EZ)
+  if (thirdVals.length > 0) 
+  {
+    shit = false;
+    newArr=[];
+    splitKeys=[];
+
+    firstVals.forEach(function(currentValue, i){
+      if (i % 2 == 0) {
+        splitKeys.push(currentValue);
+      }
+    });
+
+    thirdVals.forEach(function(currentValue2, j){
+      if (j % 2 == 0) {
+        if (!(splitKeys.includes(currentValue2))) {
+          newArr.push(currentValue2);
+          newArr.push(thirdVals[j+1]);
+        }
+      }
+    });
+
+    secondVals.forEach(function(currentValue, i){
+      if (i % 2 == 0) {
+        splitKeys2.push(currentValue);
+      }
+    });
+
+    newArr.forEach(function(currentValue2, j){
+      if (j % 2 == 0) {
+        if (!(splitKeys2.includes(currentValue2))) {
+          newNewArr.push(currentValue2);
+          newNewArr.push(newArr[j+1]);
+        }
+      }
+    });
+
+    thirdVals = newNewArr.slice();
+
+    thirdVals = filterPairs(thirdVals);
+
+    if(thirdVals.length == 0){
+      shit=true;
+    }
+
+    if(!shit){
+      check = true;
+      text += `<p>Some (likely unnessecary, especially if the ideal fr is the same, or less) alternatives are:<br>`
+      thirdVals.forEach(function(currentValue, i) {
+        if(i%2 == 0){
+          text += `${currentValue}hz => ${thirdVals[i+1]}fps<br>`
+        }
+      });
+      text += `</p><br>`;
+    }
+  }
+
+  if(!check){
+    text += `<p>Lol I'm sorry twin your physics bypass value is god awful. I'm just gonna assume u are an ILL botter, there's just no reason to actually play at this rate.</p><br>`;
+  }
+
+  return(text);
+}
+
+
 
 function calcStutterVal(){
   if (!frRate || !rrRate) {
@@ -65,9 +262,8 @@ function calcStutterVal(){
     return;
   }
   
-  const usePhysicsBypass = document.querySelector('input[name="pb"]:checked').value === "yes";
-  const physicsRate = usePhysicsBypass ? prRate : 240;
-  
+  const physicsRate = getPhysicsRate();
+
   // Calc le stutters
   const displayStutter = calculateStutter(frRate, rrRate);
   const physicsDesync = calculateStutter(physicsRate, frRate);
@@ -96,15 +292,22 @@ function calcStutterVal(){
     resultHTML += `<p style="color: green;">No physics desync detected</p>`;
   }
   
-  
   resultHTML += `<details class="dropdown cbf-dropdown">`;
   resultHTML += `<summary><b>If you use CBF or COS</b></summary>`;
   resultHTML += `<div class="dropdown-content">`;
 
   if (displayStutter !== 0) {
     resultHTML += `<h4>Due to your display stutter:</h4>`;
-    resultHTML += `<p>- Please, either make sure you play at the ideal framerate. OR, if Frame Extrapolation is out, use that.</p>`;
-  } else {
+    resultHTML += `<p>- If you can't / really dont want to use Frame Extrapolation (for some reason??), play at the ideal FPS.</p>`;
+    
+    if(idealFramerate > prRate*2 || idealFramerate > rrRate*2){
+    resultHTML += `<h4>Due to the high ideal FPS (${idealFramerate}), which may be difficult to run:</h4>`;
+    resultHTML += calcOtherRR();
+    }
+
+  } 
+  
+  else {
     resultHTML += `<p>No specific recommendations needed for CBF/COS users. Good Job.</p>`;
   }
   
@@ -115,43 +318,50 @@ function calcStutterVal(){
   resultHTML += `<div class="dropdown-content">`;
   
   if (frRate < prRate || physicsDesync !== 0) {
-    resultHTML += `<h4>Due to your physics desync or playing at a lower framerate than the physics rate (${prRate}):</h4>`;
-    resultHTML += `<p>- Make sure you are playing at ${idealFramerate} FPS. If it seems too high, either decrease your refresh rate to have a lower ideal framerate w/ the physics rate, or just enable COS or CBF.</p>`;
-    resultHTML += `<p>- Also, You are actively missing inputs by not using (at the very least), COS. It's allowed by the official leaderboard even for verifications if you care about that. If your leaderboard allows CBF (I.E. Pointercrate, AREDL, Challenge List), use that instead.</p>`;
+    resultHTML += `<h4>Due to your physics desync or playing at a lower framerate than the physics rate (${prRate}tps):</h4>`;
+    resultHTML += `<p>- You are actively missing inputs by not using (at the very least), COS. It's allowed by the official leaderboard even for verifications if you care about that. If your leaderboard allows CBF, (I.E. Pointercrate, AREDL, Challenge List), use that instead.</p>`;
+    resultHTML += `<p>- Make sure you are playing at ${idealFramerate} FPS to have proper input registration.</p>`;
   }
   
   if (displayStutter !== 0) {
     resultHTML += `<h4>Due to your display stutter:</h4>`;
-    resultHTML += `<p>- Please, make sure you play at ${idealFramerate} FPS. AND, if Frame Extrapolation is out, use that too.</p>`;
+    resultHTML += `<p>- Please, make sure you play at ${idealFramerate} FPS to have proper smooth display.</p>`;
   }
-  
+
+  if(idealFramerate > prRate*2 || idealFramerate > rrRate*2){
+    resultHTML += `<h4>Due to the high ideal FPS (${idealFramerate}), which may be difficult to run:</h4>`;
+    resultHTML += calcOtherRR();
+  }
+
   resultHTML += `<h4>Disclaimer:</h4>`;
-  resultHTML += `<p>- Even if you drop frames once, you will miss inputs. Please consider either COS (if you are a robtop-fearing man) or CBF (if you play for the right leaderboards!!!).</p>`;
+  resultHTML += `<p>- Even if you drop frames once, you will miss inputs. Please consider either COS (Vanilla Allowed) or CBF.</p>`;
   
   resultHTML += `</div></details>`;
   
   resultHTML += `<details class="dropdown" open>`;
   resultHTML += `<summary><b>In General</b></summary>`;
   resultHTML += `<div class="dropdown-content">`;
-  resultHTML += `<p>- If Frame Extrapolation is out, absolutely use it :) (no pun intended). It only visually changes the game to make it more smooth, nothing that could constitute a rule on a LB for it. Please just use it no matter what.</p>`;
+  resultHTML += `<p>- ABSOLUTELY, (no pun intended), use Frame Extrapolation. It only changes the game visually.</p>`;
+  if(rrRate > prRate){
+    resultHTML += `<h4>Due to your refresh rate being higher than the physics rate (${prRate}tps):</h4>`;
+    resultHTML += `<p><b>- If you don't use Frame Extrapolation, you physically cannot render the game over ${prRate}fps, even if your chosen FPS is the speed the game is running at.</b></p>`;
+  }
   resultHTML += `</div></details>`;
     
-    resultsDiv.innerHTML = resultHTML;
-    
-    //Dropout johnsons
-    setTimeout(() => {
-      const cbfDropdowns = document.querySelectorAll('.cbf-dropdown');
-      cbfDropdowns.forEach(dropdown => {
-        dropdown.addEventListener('toggle', function() {
-          if (this.open) {
-            cbfDropdowns.forEach(other => {
-              if (other !== this) other.open = false;
-            });
-          }
-        });
+  resultsDiv.innerHTML = resultHTML;
+  
+  setTimeout(() => {
+    const cbfDropdowns = document.querySelectorAll('.cbf-dropdown');
+    cbfDropdowns.forEach(dropdown => {
+      dropdown.addEventListener('toggle', function() {
+        if (this.open) {
+          cbfDropdowns.forEach(other => {
+            if (other !== this) other.open = false;
+          });
+        }
       });
-    }, 0);
+    });
+  }, 0);
 }
 
-// Hello buddy
 startButton.addEventListener("click", calcStutterVal);
