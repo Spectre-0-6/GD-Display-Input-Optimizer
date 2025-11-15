@@ -138,7 +138,7 @@ function filterPairs(arr){
     firstVals = filterPairs(firstVals);
     if(firstVals.length > 0){
       check = true;
-      text += `<p>Some good alternatives are:<br>`
+      text += `<p>Some "easy" to run alternatives are:<br>`
       firstVals.forEach(function(currentValue, i) {
         if(i%2 == 0){
           text += `${currentValue}hz => ${firstVals[i+1]}fps<br>`
@@ -182,7 +182,7 @@ function filterPairs(arr){
 
     if(!shit){
       check = true;
-      text += `<p>Some "okay" alternatives are:<br>`
+      text += `<p>Some "harder" to run alternatives are:<br>`
       secondVals.forEach(function(currentValue, i) {
         if(i%2 == 0){
           text += `${currentValue}hz => ${secondVals[i+1]}fps<br>`
@@ -239,7 +239,7 @@ function filterPairs(arr){
 
     if(!shit){
       check = true;
-      text += `<p>Some (likely unnessecary, especially if the ideal fr is the same, or less) alternatives are:<br>`
+      text += `<p>Some even harder (likely unnessecary unless it isn't...) alternatives are:<br>`
       thirdVals.forEach(function(currentValue, i) {
         if(i%2 == 0){
           text += `${currentValue}hz => ${thirdVals[i+1]}fps<br>`
