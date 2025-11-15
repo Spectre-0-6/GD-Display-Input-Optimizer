@@ -1,5 +1,4 @@
 // Holy Variables (Sorry)
-if ('this_is'==/an_example/){of_beautifier();}else{var a=b?(c%d):e[f];}// Holy Variables (Sorry)
 const pbInputs = document.querySelectorAll('input[name="pb"]');
 const pbEx = document.getElementById("pb-values");
 const frVal = document.getElementById("fr");
