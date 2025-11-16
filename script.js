@@ -130,7 +130,7 @@ function filterPairs(arr){
     }
   }
 
-  text += `<p>- Having a stable ideal framerate if you require to use it is very important. At <b>${prRate}tps</b> physics rate, here are some recommendations. (If you can run the FPS, choose the value closest to your RR):<br>`
+  text += `<p>- Having a stable ideal framerate if you require to use it is very important. At <b>${prRate}tps</b> physics rate, here are some recommendations. (If you can run the FPS, choose the value closest to your RR):<br><br>`
 
   // First factor(EZ)
   if (firstVals.length > 0) 
