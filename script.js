@@ -17,6 +17,8 @@ frVal.addEventListener("change", function(){ frRate = Number(frVal.value); });
 rrVal.addEventListener("change", function(){ rrRate = Number(rrVal.value); });
 prVal.addEventListener("change", function(){ prRate = Number(prVal.value); });
 
+const path = window.location.pathname.toLowerCase();
+
 pbInputs.forEach(element => {
   element.addEventListener("change", function() {
     const isEnabled = document.querySelector('input[name="pb"]:checked').value === "yes";
