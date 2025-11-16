@@ -300,7 +300,7 @@ function calcStutterVal(){
     resultHTML += `<h4>Due to your display stutter:</h4>`;
     resultHTML += `<p>- If you can't / really dont want to use Frame Extrapolation (for some reason??), play at the ideal FPS.</p>`;
     
-    if(idealFramerate > prRate*2 || idealFramerate > rrRate*2){
+    if((idealFramerate > prRate*2 || idealFramerate > rrRate*2) && idealFramerate != prRate){
     resultHTML += `<h4>Due to the high ideal FPS (${idealFramerate}), which may be difficult to run:</h4>`;
     resultHTML += calcOtherRR();
     }
