@@ -328,7 +328,7 @@ function calcStutterVal(){
     resultHTML += `<p>- Please, make sure you play at ${idealFramerate} FPS to have proper smooth display.</p>`;
   }
 
-  if(idealFramerate > prRate*2 || idealFramerate > rrRate*2){
+  if((idealFramerate > prRate*2 || idealFramerate > rrRate*2) && idealFramerate != prRate){
     resultHTML += `<h4>Due to the high ideal FPS (${idealFramerate}), which may be difficult to run:</h4>`;
     resultHTML += calcOtherRR();
   }
